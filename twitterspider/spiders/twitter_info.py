@@ -2,7 +2,7 @@
 # @Email    : jqian_bo@163.com
 # @Author  : bojingqian
 import re
-
+from twitterspider.spiderman import Spider_Aim
 from scrapy import Request
 from scrapy import Selector
 from scrapy.spiders import CrawlSpider
@@ -13,10 +13,8 @@ class Twitter_Spider(CrawlSpider):
     name = "twitter_info_start"
 
     def start_requests(self):
-        url_info = "https://twitter.com/xijinpingchn"
-        url_falungong = "https://twitter.com/li_hong_zhi"
-        url_realdonaldtrump = "https://twitter.com/realdonaldtrump"
-        yield Request(url=url_realdonaldtrump, callback=self.parse0)
+        url = "https://twitter.com/%s"%Spider_Aim
+        yield Request(url=url, callback=self.parse0)
 
     def parse0(self, response):
         information = information_ScrapyItem()

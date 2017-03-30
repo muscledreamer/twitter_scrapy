@@ -21,7 +21,7 @@ class UserAgentMiddleware(object):
 
 
 class CheckMiddleware(object):
-    """ 检测状态码 """
+    """ 检测状态码,解决302重定向 """
 
     def process_response(self,request, response, spider):
         response_status = response.status
@@ -36,11 +36,11 @@ class CheckMiddleware(object):
                                 "&reset_error_state=false"%(Spider_Aim,request_id)
         print request_url
         if response_status == 200 and response_check_url == 'twitter.com':
-            print "正常"
+            print "爬虫运行正常"
             return response
         else:
-            print "重定向了了了..."
-            time.sleep(15)
+            print "遭遇反爬虫,抵抗中..."
+            time.sleep(5)
             return request.replace(url=request_url)
 
 

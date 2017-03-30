@@ -3,6 +3,6 @@
 # @Author  : bojingqian
 
 
-# Spider_Aim = "BarackObama"
-Spider_Aim = "xijinpingchn"
+Spider_Aim = "BarackObama"
+# Spider_Aim = "love_zkr"
 # Spider_Aim = "realdonaldtrump"

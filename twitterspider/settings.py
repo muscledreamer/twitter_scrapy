@@ -17,15 +17,16 @@ SPIDER_MODULES = ['twitterspider.spiders']
 NEWSPIDER_MODULE = 'twitterspider.spiders'
 
 DOWNLOADER_MIDDLEWARES = {
-    'twitterspider.middleware.ProxyMiddleware': 100,
-    'twitterspider.middleware.UserAgentMiddleware': 200,
-    'twitterspider.middleware.CheckMiddleware': 300,
+    'twitterspider.middleware.ProxyMiddleware': 100,#代理中间件
+    'twitterspider.middleware.UserAgentMiddleware': 200,#请求头中间件
+    'twitterspider.middleware.CheckMiddleware': 300,#检测爬虫状态码,解决302重定向
 }
 
-
+#数据库管道处理
 ITEM_PIPELINES = {
     'twitterspider.pipelines.information_Pipeline': 300
 }
+#代理设置
 PROXIES = [
     {'ip_port': '127.0.0.1:9999','user_pass':None},
 ]
@@ -51,7 +52,7 @@ COOKIES_ENABLES=False
 
 ROBOTSTXT_OBEY = False
 #302 Problem
-DUPEFILTER_CLASS = 'scrapy.dupefilter.BaseDupeFilter'
+DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
