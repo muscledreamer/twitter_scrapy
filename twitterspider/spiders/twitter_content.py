@@ -9,11 +9,15 @@ from scrapy import Selector
 from scrapy.spiders import CrawlSpider
 from twitterspider.items import content_ScrapyItem
 from twitterspider.spiderman import Spider_Aim
+from twitterspider.Bloomfilter import BloomFilter
 from bs4 import BeautifulSoup
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 class Twitter_Spider(CrawlSpider):
     name = "twitter_content_start"
+    bf = BloomFilter()
 
     def start_requests(self):
         self.spiderman = Spider_Aim
@@ -39,6 +43,16 @@ class Twitter_Spider(CrawlSpider):
                 cycle_count +=1
                 selector_content = Selector(text=twitter_personal)
                 twitter_id = selector_content.xpath("//li[@class='js-stream-item stream-item stream-item\n']/@data-item-id").extract()
+                if len(twitter_id) > 0:
+                    id = twitter_id[0]
+                    if self.bf.isContains(id):
+                        print id+"已存在,进行去重过滤"
+                        continue
+                    else:
+                        self.bf.insert(id)
+                        content_Item['twitter_id'] = id
+                else:
+                    content_Item['twitter_id'] = ''
                 twitter_content_whole = ""
                 twitter_content_list = selector_content.xpath("//div[@class='js-tweet-text-container']").extract()
                 for twitter_content in twitter_content_list:
@@ -64,11 +78,6 @@ class Twitter_Spider(CrawlSpider):
 
                 twitter_img = selector_content.xpath("//div[@class='AdaptiveMedia-photoContainer js-adaptive-photo ']/@data-image-url").extract()
                 print "蜘蛛人出击！目标:%s" % twitter_id
-                if len(twitter_id) > 0:
-                    id = twitter_id[0]
-                    content_Item['twitter_id'] = id
-                else:
-                    content_Item['twitter_id'] = ''
                 if len(twitter_author) > 0:
                     author = twitter_author
                     content_Item['twitter_author'] = author

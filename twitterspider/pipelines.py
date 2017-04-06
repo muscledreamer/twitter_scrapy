@@ -54,16 +54,16 @@ class information_Pipeline(object):
             trunsmit = item['twitter_trunsmit']
             zan = item['twitter_zan']
             img = item['twitter_img']
-            check_sql = 'select href from twitter_content where twitter_id = "%s"' % id
-            self.cursor.execute(check_sql)
-            datas = self.cursor.fetchall()
-            if datas:
-                print "%s are inserted" % id
-            else:
-                sql = 'insert into twitter_content (twitter_id,author,content,href,time,reply,trunsmit,zan,img) ' \
-                      'value ("%s","%s","%s","%s","%s","%s","%s","%s","%s")' % (
-                    id,author,content, href, time, reply, trunsmit, zan, img)
-                print sql
-                self.cursor.execute(sql)
-                self.db.commit()
+            # check_sql = 'select href from twitter_content where twitter_id = "%s"' % id
+            # self.cursor.execute(check_sql)
+            # datas = self.cursor.fetchall()
+            # if datas:
+            #     print "%s are inserted" % id
+            # else:
+            sql = 'insert into twitter_content (twitter_id,author,content,href,time,reply,trunsmit,zan,img) ' \
+                  'value ("%s","%s","%s","%s","%s","%s","%s","%s","%s")' % (
+                id,author,content, href, time, reply, trunsmit, zan, img)
+            print sql
+            self.cursor.execute(sql)
+            self.db.commit()
             return item
