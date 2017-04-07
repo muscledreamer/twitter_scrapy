@@ -39,8 +39,15 @@ class CheckMiddleware(object):
             print "爬虫运行正常"
             return response
         else:
-            print "遭遇反爬虫,抵抗中..."
-            time.sleep(5)
+            print "遭遇反爬虫,休息5秒"
+            clock = 0
+            sleep_time = 5
+            while (clock < sleep_time):
+                nclock = sleep_time - clock
+                print nclock
+                time.sleep(1)
+                clock += 1
+            print '爬虫重新启动中'
             return request.replace(url=request_url)
 
 

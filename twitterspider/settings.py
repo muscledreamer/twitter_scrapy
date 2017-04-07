@@ -26,7 +26,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     # 'twitterspider.pipelines.information_Pipeline': 300
 }
-#代理设置
+#代理设置(最好使用墙外代理IP池,可减少重定向次数)
 PROXIES = [
     {'ip_port': '127.0.0.1:9999','user_pass':None},
 ]

@@ -33,7 +33,11 @@ class Twitter_Spider(CrawlSpider):
         sites = json.loads(response.body_as_unicode())
         data = sites["items_html"]
         if data == "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n":
-            print "The Last Page~"
+            cmd = "%s 推文 获取完成"%self.spiderman
+            cmd_len = len(cmd)
+            print "#" * cmd_len
+            print cmd
+            print "#" * cmd_len
         else:
             twitter_author = re.compile('data-name="(.+)" data-user-id=').findall(data)[0]
             selector_app = Selector(text=data)

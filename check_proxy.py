@@ -8,15 +8,15 @@ import telnetlib
 def first_check():
     check_ip = '127.0.0.1'
     check_port = '9999'
-    # try:
-    #     telnetlib.Telnet(check_ip, port=check_port, timeout=5)
-    # except:
-    #     print '第一道都过不了,滚吧'
-    # else:
-    #     print '第一道检测闸放行'
+    try:
+        telnetlib.Telnet(check_ip, port=check_port, timeout=5)
+    except:
+        print '第一道都过不了,滚吧'
+    else:
+        print '第一道检测闸放行'
     check_ip_port_http = 'http://%s:%s'%(check_ip,check_port)
     check_ip_port_https = 'https://%s:%s'%(check_ip,check_port)
-    second_check(check_ip_port_http,check_ip_port_https)
+    return second_check(check_ip_port_http,check_ip_port_https)
 
 def second_check(check_ip_port_http,check_ip_port_https):
     test_url = "https://www.google.com/"
